@@ -1,18 +1,16 @@
 #include "unpack.hpp"
 
-#include "types\csb.hpp"
+#include "types/csb.hpp"
 
-namespace ceu
+auto ceu::unpack(const std::filesystem::path &file, const std::filesystem::path &out_path)
+    -> unpack_result
 {
-    auto unpack(const std::filesystem::path &file) -> unpack_result
-    {
-        const auto ext = file.extension().string();
+    const auto ext = file.extension().string();
 
-        // clang-format off
-        switch (stringUnpackType[ext]) {
-        case CSB:   return types::csb::unpack(file);
-        default:    return FAIL;
-        }
-        // clang-format on
+    // clang-format off
+    switch (stringUnpackType[ext]) {
+    case CSB:   return types::csb::unpack(file, out_path);
+    default:    return FAIL;
     }
-} // namespace ceu
+    // clang-format on
+}

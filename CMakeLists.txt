@@ -13,10 +13,11 @@ include(cmake/variables.cmake)
 
 # ---- Declare executable ----
 
-add_executable(CEUnpack_exe src/main.cpp
+add_executable(CEUnpack_exe
+        src/main.cpp
+        src/main.hpp
         src/unpack.cpp
         src/unpack.hpp
-        src/util.cpp
         src/util.hpp
         src/types/csb.cpp
         src/types/csb.hpp)

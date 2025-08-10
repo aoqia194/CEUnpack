@@ -45,7 +45,8 @@ namespace ceu
         {  OK,   "OK"},
     };
 
-    auto unpack(const std::filesystem::path &file) -> unpack_result;
+    auto unpack(const std::filesystem::path &file, const std::filesystem::path &out_path)
+        -> unpack_result;
 } // namespace ceu
 
 #endif // CEUNPACK_EXTRACTOR_HPP
