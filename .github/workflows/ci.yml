@@ -1,0 +1,45 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-24.04
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-python@v5
+      with: { python-version: "3.12" }
+
+    - name: Install codespell
+      run: pip3 install codespell
+
+    - name: Lint
+      run: cmake -D FORMAT_COMMAND=clang-format-18 -P cmake/lint.cmake
+
+    - name: Spell check
+      if: always()
+      run: cmake -P cmake/spell.cmake
+
+  sanitize:
+    needs: [lint]
+
+    runs-on: ubuntu-24.04
+
+    env: { CXX: clang++-18 }
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Configure
+      run: cmake --preset=ci-sanitize
+
+    - name: Build
+      run: cmake --build build/sanitize -j 2
