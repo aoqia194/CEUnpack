@@ -20,7 +20,9 @@ add_executable(CEUnpack_exe
         src/unpack.hpp
         src/util.hpp
         src/types/csb.cpp
-        src/types/csb.hpp)
+        src/types/csb.hpp
+        src/types/rpack.cpp
+        src/types/rpack.hpp)
 add_executable(CEUnpack::exe ALIAS CEUnpack_exe)
 
 set_property(TARGET CEUnpack_exe PROPERTY OUTPUT_NAME CEUnpack)

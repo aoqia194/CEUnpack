@@ -49,7 +49,8 @@ auto main(const int argc, const char **argv) -> int
             continue;
         }
 
-        auto out = file.parent_path() / (file.stem().string() + "_unpacked");
+        auto stem = file.stem().string();
+        auto out = file.parent_path() / (stem + "_unpacked");
         if (!std::filesystem::exists(out)) {
             std::filesystem::create_directories(out);
         } else {
@@ -57,7 +58,7 @@ auto main(const int argc, const char **argv) -> int
             continue;
         }
 
-        spdlog::info("Unpacking {}", out.string());
+        spdlog::info("Unpacking {}", stem);
         const auto res = ceu::unpack(file, out);
         if (res != ceu::OK) {
             spdlog::error("Failed to extract file with error {}",
